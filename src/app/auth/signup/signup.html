@@ -1,1 +1,34 @@
-<p>signup works!</p>
+<h3>Create an Account</h3>
+<form (ngSubmit)="onSubmit()" class="ui form" [formGroup]="authForm"> 
+    <app-input inputType="text" label="Username" [control]="authForm.get('username')!"></app-input> 
+    <app-input inputType="password" label="Password" [control]="authForm.get('password')!"></app-input>
+    <app-input inputType="password" label="Password Confirmation" [control]="authForm.get('passwordConfirmation')!"></app-input> 
+
+    @if (authForm.get('password')?.touched && 
+            authForm.get('passwordConfirmation')?.touched && 
+            authForm.errors) {
+        <div class="ui red basic label">
+        <p>
+            @if (authForm.errors['passwordsDontMatch']) {
+                Password and Password Confirmation must match
+            }
+        </p>
+        <p>
+            @if (authForm.errors['noConnection']) {
+                No connection to the server, failed to sign up
+            }
+        </p>
+        <p>
+            @if (authForm.errors['unknownError']) {
+                An unknown error occurred while signing up
+            }
+        </p>
+    </div>
+    }
+
+    <div>
+        <button class="ui submit button primary">
+            Submit
+        </button>
+    </div>
+</form>

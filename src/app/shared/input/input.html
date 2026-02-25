@@ -1,1 +1,27 @@
-<p>input works!</p>
+<div class="field">
+    <label>{{ label }}</label>
+    <input [type]="inputType" [formControl]="$any(control)" />
+
+    @if (showErrors()) {
+       <div class="ui pointing red basic label">
+        @if (control.errors?.['required']) {
+            <p>Value is required</p>
+        }
+        @if (control.errors?.['minlength']) {
+            <p>Value should be at least {{ control.errors?.['minlength'].requiredLength }} characters long</p>
+        }
+        @if (control.errors?.['maxlength']) {
+            <p>Value should be at most {{ control.errors?.['maxlength'].requiredLength }} characters long</p>
+        }
+        @if (control.errors?.['pattern']) {
+            <p>Invalid pattern</p>
+        }
+        @if (control.errors?.['nonUniqueUsername']) {
+            <p>Username is not unique</p>
+        }
+        @if (control.errors?.['noConnection']) {
+            <p>Can't tell if username is taken</p>
+        }
+       </div>
+    }
+</div>
